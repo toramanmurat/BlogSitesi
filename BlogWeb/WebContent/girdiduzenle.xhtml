@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
+<h:head>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="cssLayout.css" />
+	<title>>Kullanıcı İşlemleri</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div id="baslik">
+			#{kullaniciBean.seciliBlog.blogBaslik}
+		</div>
+		
+		<div id="menu">
+			<ul>
+				<li>
+					<h:commandLink action="#{kullaniciBean.kullanicininBloglariniListele()}" value="Bloglarımı Getir"
+									rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}" />
+				</li>
+				<li>
+					<h:commandLink action="#{kullaniciBean.tumBloglariListele()}" value="Tum blogları listele" />
+				</li>
+				
+				<li>
+					<h:commandLink action="#{kullaniciBean.yeniBlog()}" value="Yeni Blog oluştur"
+									rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}" />
+				</li>
+			</ul>
+		</div>
+		<div id="giris">
+			<br/>
+			<h:panelGrid columns="2">
+				<h:outputText value="Girdi Başlığı:"  
+						      style="font-weight: bold;" />
+						      
+				<h:inputText value="#{kullaniciBean.girdiBaslik}"
+							 style="width: 780px;" />
+			
+			</h:panelGrid>
+			<br/>
+			<h:panelGrid columns="2">
+				<h:outputText value="Girdi İçerik:"
+							  style="font-weight: bold;" />
+				<p:editor value="#{kullaniciBean.girdiIcerik}"/>
+				
+				
+					
+			</h:panelGrid>
+			<br/>
+			<h:commandButton action="#{kullaniciBean.girdiEkle()}" value="Ekle"
+							 rendered="#{kullaniciBean.girdiBaslik.length() eq 0}"
+							 style="width: 90px; font-weight: bold;" />
+			<h:commandButton action="#{kullaniciBean.girdiDuzenle()}" value="Düzenle"
+							 rendered="#{kullaniciBean.girdiBaslik.length() eq 0}"
+							 style="width: 90px; font-weight: bold;" />
+			<h:commandButton action="#{kullaniciBean.girdiSil()}" value="Sil"
+							 rendered="#{kullaniciBean.girdiBaslik.length() eq 0}"
+							 style="width: 90px; font-weight: bold;" />
+			
+			
+		</div>
+	</h:form>
+</h:body>
+</html>

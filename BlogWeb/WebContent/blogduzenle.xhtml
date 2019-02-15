@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  >
+<h:head>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="cssLayout.css" />
+	<title>Kullanıcı İşlemleri</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div id="baslik">
+			#{kullaniciBean.seciliBlog.blogBaslik}
+		</div>
+		<div id="aciklama">
+			Hoş Geldiniz #{kullaniciBean.kullaniciAdi} sistemden çıkmak için
+			<h:commandLink action="#{kullaniciBean.cikis()}" value="tıklayınız."
+							style="color:white" />
+		</div>
+		
+		<div id="menu">
+			<ul id="nav">
+				<li>
+					<h:commandLink action="#{kullaniciBean.kullanicininBloglariniListele()}" value="Bloglarımı getir"
+									rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}" />
+				</li>
+				
+				<li>
+					<h:commandLink action="#{kullaniciBean.tumBloglariListele()}" value="Tüm blogları listele" />
+				</li>
+				
+				<li>
+					<h:commandLink action="#{kullaniciBean.yeniBlog()}" value="Yeni blog oluştur"
+									rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"/>
+				</li>
+			</ul>
+		</div>
+		<div id="giris">
+			<br/>
+			<br/>
+			
+			<h:panelGrid columns="2">
+				<h:outputText  value="Blog Başlığı:" style="font-weight: bold;"/>
+				<h:inputText value="#{kullaniciBean.blogBaslik}" />
+			</h:panelGrid>
+			<br/>
+			<br/>
+			<h:panelGrid columns="2">
+				<h:outputText value="Blog içeriği"
+							  style="font-weight: bold;" />
+				<h:inputTextarea value="#{kullaniciBean.blogAciklama}"
+								style="width: 500px; height: 320px" />
+			</h:panelGrid>
+			<h:commandButton action="#{kullaniciBean.blogEkle()}" value="Ekle"
+							 rendered="#{kullaniciBean.blogBaslik.length() eq 0}"
+							 style="font-weight: bold; width: 90px" />
+		</div>
+	
+	</h:form>
+</h:body>
+</html>

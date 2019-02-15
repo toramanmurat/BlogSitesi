@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Giriş Sayfası</title>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="cssLayout.css" />
+</h:head>
+<h:body>
+	<div id="baslik">BLOG SİTESEİ</div>
+
+	<div id="aciklama">
+		<h:outputText value="{Sitemize Hoşgeldiniz}"
+			rendered="#{kullaniciBean.kullaniciBilgisi eq null}" />
+
+		<h:form>
+			<h:outputText
+				value="Hoş geldiniz #{KullaniciBean.kullaniciAdi} sistemden çıkmak için"
+				rendered="#{kullaniciBean.kullaniciBilgisi ne null}" />
+			<h:commandLink action="#{kullaniciBean.cikis()}" value="tıklayınız."
+				rendered="#{kullaniciBean.kullaniciBilgisi ne null}"
+				style="color:white" />
+
+		</h:form>
+	</div>
+
+	<div id="giris">
+		<h:form id="girisFormu">
+				<h:panelGrid columns="2">
+					<h:outputText value="Kullanıcı Adi:" style="font-weight: bold;"/>
+					<h:inputText value="#{kullaniciBean.kullaniciAdi}"
+							     required="true"
+							     requiredMessage="Kullanıcı adı boş geçilemez !"
+							     validatorMessage="Kullanıcı Adınız e-mail adresi formatında değil!"
+							     
+							     style="font-weight: bold; color: #444444;"
+							     id="kullaniciAdi">
+							 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</h:inputText>
+				   
+					
+					<h:outputText style="font-weight: bold;" value="Şifre:" />
+					<h:inputSecret value="#{kullaniciBean.sifre}"
+							 	   required="true"
+							 	   requiredMessage="Şifre alani boş olamaz !"
+							 	   style="font-weight: bold; color: #444444;" 
+							 	   id="kullaniciSifre"/>
+					
+					
+					
+					<h:outputText value="" />
+					<h:commandButton action="#{kullaniciBean.girisYap()}" value="Giriş Yap" 
+											 style="font-weight: bold; color:red;"/>
+					
+					<h:messages style="color:red" />
+				
+				</h:panelGrid>
+	
+		</h:form>
+
+	</div>
+
+</h:body>
+</html>

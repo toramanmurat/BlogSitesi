@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="cssLayout.css" />
+	<title>Kullanıcı İşlemleri</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div id="baslik">
+			BLog Sitesi
+		</div>
+		
+		<div id="aciklama">
+			Hoş Geldiniz #{kullaniciBean.kullaniciAdi} sistemden çıkmak için 
+			<h:commandLink action="#{kullaniciBean.cikis()}" value="tıklayınız."
+							style="color:white"/>
+		
+		</div>
+		
+		<div id="menu">
+			<ul id="nav">
+				<li>
+					<h:commandLink action="#{kullaniciBean.kullanicininBloglariniListele()}"
+							 value="Bloglarımı Getir" 
+							 rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"/>
+				</li>
+				
+				<li>
+					<h:commandLink action="#{kullaniciBean.tumBloglariListele()}" 
+									value="Tüm Blogları Listele" />
+				</li>
+				
+				<li>
+					<h:commandLink action="#{kullaniciBean.yeniBlog()}"
+									value="Yeni Blog Oluştur"
+									rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}" />
+				</li>
+				
+			</ul>
+		
+		</div>
+		
+		<div id="giris">
+			<br/>
+			<h:dataTable value="#{kullaniciBean.blogListesi}" rendered="#{kullaniciBean.blogListesi ne null}"
+							var="blog" styleClass="bloglar" headerClass="tableHead" width="94%">
+							
+							<f:facet name="header">
+									Blog Listesi
+							</f:facet>
+							<h:column headerClass="colHead">
+								<f:facet name="header">
+									Blog Başlığı
+								</f:facet>
+								<h:outputText value="#{blog.blogBaslik}" />
+							</h:column>
+							
+							<h:column headerClass="colHead" >
+								<f:facet name="header">
+									Açıklama
+								</f:facet>
+								<h:outputText value="#{blog.blogOzetAciklama}"/>
+							
+							</h:column>
+							
+							<h:column headerClass="colHead">
+								<f:facet name="header">
+									İşlemler
+								</f:facet>
+								<h:commandLink action="#{kullaniciBean.blogaGit(blog)}" value=" Bloga git" />
+								<h:commandLink action="#{kullaniciBean.tumGirdileriGetir(blog.blogId)}" value="Tüm girdileri getir" />
+								<h:commandLink action="#{kullaniciBean.bloguSil(blog)}" value="Bloğu sik"
+												onclick="return confirm('Blog ile ilgili bütün verikerşi silmek istediğinizden emin misiniz ?')" />
+							</h:column>
+	
+			</h:dataTable>
+			
+			<h:outputText value="Kullanıcıya ait herhangi bir blog bulunamadı. Yeni bir blog oluşturaiblmek için BLOG EKLE butonuna tıklayınız."
+							rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi and kullaniciBean.kullanicininBlogSayisi==0}"
+							style="font-size: 20px; font-weight: bold" />
+							 
+			<br/>
+			<h:commandButton action="#{kullaniciBean.yeniBlog()}" value="Yeni Blog Oluştur"
+							rendered="#{kullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+							style="font-weight: bold;color: red" />		 
+		
+		
+		</div>
+	
+	</h:form>
+</h:body>
+</html>
